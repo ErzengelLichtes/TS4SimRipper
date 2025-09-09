@@ -87,6 +87,7 @@ namespace TS4SimRipper
                 };
             }
             if (details.Size != currentSize) details = new Bitmap(details, currentSize);
+            if (sculptOverlay == null) return details;
 
             using (Graphics g = Graphics.FromImage(details))
             {
