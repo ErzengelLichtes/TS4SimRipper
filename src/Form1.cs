@@ -384,6 +384,7 @@ namespace TS4SimRipper
             currentOccult = SimOccult.Human;
             Occults_comboBox.SelectedIndexChanged -= Occults_comboBox_SelectedIndexChanged;
             Occults_comboBox.Items.Clear();
+            Occults_comboBox.ResetText();
             Occults_comboBox.Refresh();
             if (sim.attributes != null && sim.attributes.occult_tracker != null && sim.attributes.occult_tracker.occult_sim_infos != null)
             {
