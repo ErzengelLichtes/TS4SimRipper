@@ -14,11 +14,12 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <ManifestKeyFile>TS4SimRipper_TemporaryKey.pfx</ManifestKeyFile>
     <ManifestCertificateThumbprint>60C09E8E8648A004C24288ED7DF459FE973C025C</ManifestCertificateThumbprint>
-    <Version>$(SIMRIPPER_VERSION)</Version>
-    <ApplicationDisplayVersion>$(SIMRIPPER_VERSION)</ApplicationDisplayVersion>
-    <ApplicationVersion>$(SIMRIPPER_VERSION)</ApplicationVersion>
-    <AssemblyVersion>$(SIMRIPPER_VERSION)</AssemblyVersion>
-    <FileVersion>$(SIMRIPPER_VERSION)</FileVersion>
+    <Version>3.14.2.10</Version>
+    <Version_>$(Version.Replace(".","_"))</Version_>
+    <ApplicationDisplayVersion>$(Version)</ApplicationDisplayVersion>
+    <ApplicationVersion>$(Version)</ApplicationVersion>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
     <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
     <Copyright>Copyright ©  2019</Copyright>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
@@ -65,4 +66,10 @@
     <PackageReference Include="protobuf-net" Version="3.2.30"/>
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1"/>
   </ItemGroup>
+  <Target Name="ZipOutputPath" AfterTargets="Publish">
+    <ZipDirectory
+            SourceDirectory="$(PublishDir)"
+            Overwrite="true"
+            DestinationFile="$(MSBuildProjectDirectory)\..\release\CmarNYC_TS4SimRipper_$(Version_).zip"/>
+  </Target>
 </Project>
