@@ -33,8 +33,6 @@ namespace TS4SimRipper
         // 1 bit DefaultForBodyTypeFemale
         // 1 bit DefaultForBodyTypeMale
         // 1 bit RestrictOppositeFrame
-        ulong excludePartFlags; // parts removed
-        ulong excludePartFlags2;         // v0x29
         ulong excludeModifierRegionFlags;
         int tagCount;
         PartTag[] categoryTags; // [tagCount] PartTags
@@ -135,15 +133,33 @@ namespace TS4SimRipper
             get { return this.parameterFlags2; }
             set { this.parameterFlags2 = value; }
         }
+        public List<ulong> ExcludePartFlagsList { get; set; } = new List<ulong>(new ulong[3]);
+
         public ulong ExcludePartFlags
         {
-            get { return this.excludePartFlags; }
-            set { this.excludePartFlags = value; }
+            get
+            {
+                while(ExcludePartFlagsList.Count < 1) ExcludePartFlagsList.Add(0ul);
+                return ExcludePartFlagsList[0];
+            }
+            set
+            {
+                while(ExcludePartFlagsList.Count < 1) ExcludePartFlagsList.Add(0ul);
+                ExcludePartFlagsList[0] = value;
+            }
         }
         public ulong ExcludePartFlags2
         {
-            get { return this.excludePartFlags2; }
-            set { this.excludePartFlags2 = value; }
+            get
+            {
+                while(ExcludePartFlagsList.Count < 2) ExcludePartFlagsList.Add(0ul);
+                return ExcludePartFlagsList[1];
+            }
+            set
+            {
+                while(ExcludePartFlagsList.Count < 2) ExcludePartFlagsList.Add(0ul);
+                ExcludePartFlagsList[1] = value;
+            }
         }
         public ulong ExcludeModifierRegionFlags
         {
@@ -503,18 +519,21 @@ namespace TS4SimRipper
             {
                 this.LayerID = br.ReadUInt16();
             }
-            if (version >= 51)
-            {
-                this.EBN1 = br.ReadUInt32();
+            ExcludePartFlagsList.Clear();
+            if(version >= 51){
+                var c1 = br.ReadInt32();
+                for (int i = 0; i < c1; i++)
+                {
+                    ExcludePartFlagsList.Add(br.ReadUInt64());
+                }
             }
-            excludePartFlags = br.ReadUInt64();
-            if (version >= 41)
+            else
             {
-                excludePartFlags2 = br.ReadUInt64();
-            }
-            if (version >= 51)
-            {
-                this.EBN2 = br.ReadUInt64();
+                ExcludePartFlags = br.ReadUInt64();
+                if (version >= 41)
+                {
+                    ExcludePartFlags2 = br.ReadUInt64();
+                }
             }
             if (version > 36)
             {
@@ -667,10 +686,18 @@ namespace TS4SimRipper
             if(this.version >= 50){
                 bw.Write(this.LayerID);
             }
-            bw.Write(excludePartFlags);
-            if (version >= 41)
+            if (this.version >= 51)
             {
-                bw.Write(excludePartFlags2);
+                bw.Write(this.ExcludePartFlagsList.Count);
+                foreach(var f in ExcludePartFlagsList) bw.Write(f);
+            }
+            else
+            {
+                bw.Write(ExcludePartFlags);
+                if (version >= 41)
+                {
+                    bw.Write(ExcludePartFlags2);
+                }
             }
             if (version > 36)
             {
@@ -819,8 +846,6 @@ namespace TS4SimRipper
         }
 
         public ushort LayerID { get; set; }
-        public uint EBN1 { get; set; }
-        public ulong EBN2 { get; set; }
 
         internal class PartTag
         {
