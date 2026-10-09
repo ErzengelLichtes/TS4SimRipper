@@ -1450,7 +1450,12 @@ namespace TS4SimRipper
                 return s;
             }
         }
-
+        private static uv[] NewBlankUVs(int count) {
+            uv[] arr = new uv[count];
+            for (int i = 0; i < arr.Length; i++)
+                arr[i] = new uv();
+            return arr;
+        }
         public void StandardizeFormat()
         {
             if (this.version < 14) this.version = 14;
@@ -1459,14 +1464,19 @@ namespace TS4SimRipper
             if (this.SlotrayAdjustments == null) this.SlotrayAdjustments = new SlotrayIntersection[0];
             if (this.bonehasharray == null) this.bonehasharray = new uint[0];
             if (this.meshTGIs == null) this.meshTGIs = new TGI[0];
-            if (!this.hasUVset(1))
-            {
+            if (!this.hasUVset(1)) {
+                int  vcount   = this.vPositions.Length;
+                bool hasFirst = this.hasUVset(0);
+
+                // Make sure there are descriptors for two UV sets in total.
+                // If there are none, we need to insert two; if there's one, only one.
+                if (!hasFirst)
+                    this.InsertFormatDescriptor(MeshFormatFlag.UV);
                 this.InsertFormatDescriptor(MeshFormatFlag.UV);
-                uv[] tmp = new uv[this.vPositions.Length];
-                for (int i = 0; i < tmp.Length; i++) tmp[i] = new uv();
+
                 uv[][] newuv = new uv[2][];
-                newuv[0] = this.vUVs[0];
-                newuv[1] = tmp;
+                newuv[0]  = hasFirst ? this.vUVs[0] : NewBlankUVs(vcount);
+                newuv[1]  = NewBlankUVs(vcount);
                 this.vUVs = newuv;
             }
             if (this.numberUVsets > 2)

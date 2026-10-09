@@ -31,23 +31,6 @@
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DDSPanel">
-      <HintPath>$(S4PI_LIB)\DDSPanel.dll</HintPath>
-    </Reference>
-    <Reference Include="s4pi.ImageResource">
-      <HintPath>$(S4PI_LIB)\s4pi.ImageResource.dll</HintPath>
-    </Reference>
-    <Reference Include="s4pi.Interfaces">
-      <HintPath>$(S4PI_LIB)\s4pi.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="s4pi.Package">
-      <HintPath>$(S4PI_LIB)\s4pi.Package.dll</HintPath>
-    </Reference>
-    <Reference Include="s4pi.Settings">
-      <HintPath>$(S4PI_LIB)\s4pi.Settings.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="*.grannyrig">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -62,9 +45,26 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="protobuf-net" Version="3.2.30"/>
-    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1"/>
+    <PackageReference Include="protobuf-net" Version="3.2.30" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DDSPanel">
+      <HintPath>..\..\Sims4Tools\bin\Debug\DDSPanel.dll</HintPath>
+    </Reference>
+    <Reference Include="s4pi.ImageResource">
+      <HintPath>..\..\Sims4Tools\bin\Debug\s4pi.ImageResource.dll</HintPath>
+    </Reference>
+    <Reference Include="s4pi.Interfaces">
+      <HintPath>..\..\Sims4Tools\bin\Debug\s4pi.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="s4pi.Package">
+      <HintPath>..\..\Sims4Tools\bin\Debug\s4pi.Package.dll</HintPath>
+    </Reference>
+    <Reference Include="s4pi.Settings">
+      <HintPath>..\..\Sims4Tools\bin\Debug\s4pi.Settings.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

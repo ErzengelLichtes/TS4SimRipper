@@ -32,23 +32,6 @@
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DDSPanel">
-      <HintPath>$(S4PI_LIB)\DDSPanel.dll</HintPath>
-    </Reference>
-    <Reference Include="s4pi.ImageResource">
-      <HintPath>$(S4PI_LIB)\s4pi.ImageResource.dll</HintPath>
-    </Reference>
-    <Reference Include="s4pi.Interfaces">
-      <HintPath>$(S4PI_LIB)\s4pi.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="s4pi.Package">
-      <HintPath>$(S4PI_LIB)\s4pi.Package.dll</HintPath>
-    </Reference>
-    <Reference Include="s4pi.Settings">
-      <HintPath>$(S4PI_LIB)\s4pi.Settings.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="*.grannyrig">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -63,13 +46,27 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="protobuf-net" Version="3.2.30"/>
-    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1"/>
+    <PackageReference Include="protobuf-net" Version="3.2.30" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DDSPanel">
+      <HintPath>..\..\..\CmarNYC_TS4SimRipper_3_14_2_11\DDSPanel.dll</HintPath>
+    </Reference>
+    <Reference Include="s4pi.ImageResource">
+      <HintPath>..\..\..\CmarNYC_TS4SimRipper_3_14_2_11\s4pi.ImageResource.dll</HintPath>
+    </Reference>
+    <Reference Include="s4pi.Interfaces">
+      <HintPath>..\..\..\CmarNYC_TS4SimRipper_3_14_2_11\s4pi.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="s4pi.Package">
+      <HintPath>..\..\..\CmarNYC_TS4SimRipper_3_14_2_11\s4pi.Package.dll</HintPath>
+    </Reference>
+    <Reference Include="s4pi.Settings">
+      <HintPath>..\..\..\CmarNYC_TS4SimRipper_3_14_2_11\s4pi.Settings.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Target Name="ZipOutputPath" AfterTargets="Publish">
-    <ZipDirectory
-            SourceDirectory="$(PublishDir)"
-            Overwrite="true"
-            DestinationFile="$(MSBuildProjectDirectory)\..\release\CmarNYC_TS4SimRipper_$(Version_).zip"/>
+    <ZipDirectory SourceDirectory="$(PublishDir)" Overwrite="true" DestinationFile="$(MSBuildProjectDirectory)\..\release\CmarNYC_TS4SimRipper_$(Version_).zip" />
   </Target>
 </Project>
